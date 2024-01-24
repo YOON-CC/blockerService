@@ -22,7 +22,6 @@ export default function Main(){
                 <div className={styles.body3}>
                     <BodyThree/>
                 </div>
-
             </div>
             <div className={styles.footer}>
                 <Footer/>
