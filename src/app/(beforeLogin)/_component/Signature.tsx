@@ -9,7 +9,7 @@ import appStore from '@/store/appStore';
 
 export default function Signature() {
     const router = useRouter();
-    if (appStore.value !== 2){
+    if (appStore.value !== 3){
         router.replace('/');
     }
 
@@ -51,7 +51,7 @@ export default function Signature() {
           if (response.status === 200) {
             console.log('상태값 200');
             localStorage.setItem('access-token', response.headers['authorization'])
-            appStore.setValue(1);
+            appStore.setValue(2);
           }
         } catch (error) {
           // 에러 처리

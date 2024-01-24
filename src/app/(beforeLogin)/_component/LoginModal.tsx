@@ -39,7 +39,7 @@ export default function LoginModal() {
     
     
             console.log(refresh_token, access_token)
-            appStore.setValue(1) // 나중에 1로 바꿔야함
+            appStore.setValue(2) // 나중에 1로 바꿔야함
           }
           if (response.status === 201) {
             console.log("상태값 201", response.data)
@@ -50,7 +50,7 @@ export default function LoginModal() {
             localStorage.setItem('access-token', access_token)
             router.replace('/signature');
             // router.back();
-            appStore.setValue(2) // 나중에 1로 바꿔야함
+            appStore.setValue(3) // 나중에 1로 바꿔야함
           }
         } catch (error) {
         }
