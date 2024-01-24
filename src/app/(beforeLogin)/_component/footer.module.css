@@ -1,0 +1,27 @@
+.footerImg{
+    height: 40px;
+    width: 290px;
+    margin-left: 40px;
+}
+.footerContainer{
+    /* background-color: aqua; */
+    height: 60px;
+    width: 440px;
+}
+.footerContainerTitle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    font-size: 13px;
+    margin-top: 5px;
+}
+.footerContainerContent{
+    height: 25px;
+    margin-top: 10px;
+    align-items: center;
+    justify-content: space-evenly;
+    display: flex;
+    font-size: 10px;
+}
