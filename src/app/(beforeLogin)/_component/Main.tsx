@@ -10,7 +10,7 @@ import appStore from '@/store/appStore';
 import {redirect, useRouter} from "next/navigation";
 
 export default function Main(){
-
+    console.log(appStore.value)
     return (
         <>
             <div className={styles.container}>

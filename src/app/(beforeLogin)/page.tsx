@@ -1,12 +1,10 @@
 import Main from "@/app/(beforeLogin)/_component/Main";
-import appStore from '@/store/appStore';
+import Board from "@/app/(afterLogin)/board/page"
+
 export default function Home() {
-
-
   return (
     <>
-      {appStore.value === 1 &&  <Main />}
-      {/* {appStore.value === 2 &&  <Home />} */}
+      <Main />
     </>
   );
 }

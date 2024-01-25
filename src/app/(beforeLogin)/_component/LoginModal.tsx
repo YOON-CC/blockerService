@@ -40,6 +40,7 @@ export default function LoginModal() {
     
             console.log(refresh_token, access_token)
             appStore.setValue(2) // 나중에 1로 바꿔야함
+            router.replace('/access');
           }
           if (response.status === 201) {
             console.log("상태값 201", response.data)
