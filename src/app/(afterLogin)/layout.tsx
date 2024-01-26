@@ -3,6 +3,8 @@ import {ReactNode} from "react";
 import styles from '@/app/(afterLogin)/layout.module.css'
 import Image from "next/image";
 import LogoImg from "../../../public/MainLogo.png";
+import Link from "next/link"
+
 type Props = { children: ReactNode};
 
             
@@ -14,8 +16,8 @@ export default function Layout({ children }: Props) {
           <Image className={styles.LogoImg} src={LogoImg} alt="logo" />
         </div>
         <div className={styles.categoryContainer}>
-          <div className={styles.category}>Board</div>
-          <div className={styles.category}>Write</div>
+          <Link href="/board" className={styles.category} style={{ textDecoration: 'none'}}>Board</Link>
+          <Link href="/postwrite" className={styles.category} style={{ textDecoration: 'none'}}>Post</Link>
           <div className={styles.category}>Contract</div>
           <div className={styles.category}>Mypage</div>
         </div>
