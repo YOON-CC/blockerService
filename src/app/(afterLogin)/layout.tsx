@@ -1,10 +1,26 @@
 import {ReactNode} from "react";
 // import styles from '@/app/(beforeLogin)/_component/main.module.css';
-
+import styles from '@/app/(afterLogin)/layout.module.css'
+import Image from "next/image";
+import LogoImg from "../../../public/MainLogo.png";
 type Props = { children: ReactNode};
+
+            
 export default function Layout({ children }: Props) {
   return (
-    <div>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <div className={styles.Logo}>
+          <Image className={styles.LogoImg} src={LogoImg} alt="logo" />
+        </div>
+        <div className={styles.categoryContainer}>
+          <div className={styles.category}>Board</div>
+          <div className={styles.category}>Write</div>
+          <div className={styles.category}>Contract</div>
+          <div className={styles.category}>Mypage</div>
+        </div>
+        <div className={styles.Logout}>LogOut</div>
+      </div>
       {children}
     </div>
   )

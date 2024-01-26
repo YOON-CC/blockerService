@@ -1,6 +1,6 @@
 import styles from "@/app/(beforeLogin)/_component/footer.module.css";
 import Image from "next/image";
-import footerImg from "../../../../public/footerLogo.png";
+import footerImg from "../../../../public/MainLogo.png";
 
 export default function Footer(){
     return (

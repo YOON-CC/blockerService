@@ -52,6 +52,7 @@ export default function Signature() {
             console.log('상태값 200');
             localStorage.setItem('access-token', response.headers['authorization'])
             appStore.setValue(2);
+            router.replace('/access');
           }
         } catch (error) {
           // 에러 처리
