@@ -25,7 +25,10 @@ const Board = () => {
 
     const [boardData, setBoardData] = useState<BoardItem[]>([]); 
 
-    const access_token = localStorage.getItem('access-token');
+    const access_token = typeof window !== 'undefined' ? localStorage.getItem('access-token') : null;
+    // const access_token = localStorage.getItem('access-token'); 해당방식을 쓰면 international 500이 뜬다.
+    //이렇게 코드를 작성하는 이유는, Next.js의 SSR이나 정적 생성 시에는 서버 측에서 코드가 실행되기 때문에 브라우저 API인 localStorage에 접근하는 것이 불가능
+
     console.log(access_token)
 
     const handleBoardList = async () => {
@@ -68,7 +71,7 @@ const Board = () => {
                 <div className={styles.Container_board_frame}>
 
                     {boardData.map((item, index) => (
-                        <Link href={`/boardObject/${item.boardId}`} style={{ textDecoration: 'none' }}  onClick={() => localStorage.setItem("boardId", item.boardId.toString())}>
+                        <Link key={index} href={`/boardObject/${item.boardId}`} style={{ textDecoration: 'none' }}  onClick={() => localStorage.setItem("boardId", item.boardId.toString())}>
                             <div className={styles.Container_board_item} key={index}>
                                 <div className={styles.Container_board_background_img} style={{ backgroundImage: `url(/boardImg.png)` }}>
                                     <div className={styles.Container_board_item_info}>

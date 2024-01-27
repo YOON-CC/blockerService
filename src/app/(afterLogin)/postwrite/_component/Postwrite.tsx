@@ -28,9 +28,31 @@ const Postwrite = () => {
     const [images, setImages] = useState<string[]>([]);
 
     const handlePngToUrl = async () => {
-        // const images = await uploadImages(selectedImages, access_token);
-        // setImages(prevImages => [...prevImages, ...images]);
+        try {
+            if (selectedImages.length === 0) {
+                return;
+            }
+    
+            const formData = new FormData();
+            const lastIndex = selectedImages.length - 1;
+            formData.append('image', selectedImages[lastIndex], 'image.png');
+    
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_REACT_APP_API_URL}/images`, formData, {
+                headers: {
+                    'Authorization': access_token,
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+    
+            if (response.status === 201) {
+                setImages(prevImages => [...prevImages, response.data.address]);
+            }
+        } catch (error) {
+            // 에러 처리
+            throw error;
+        }
     };
+    
 
     useEffect(() => {
         // 페이지가 로드될 때 한 번만 호출되는 로직
