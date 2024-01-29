@@ -18,7 +18,7 @@ export default function Layout({ children }: Props) {
         <div className={styles.categoryContainer}>
           <Link href="/board" className={styles.category} style={{ textDecoration: 'none'}}>Board</Link>
           <Link href="/postwrite" className={styles.category} style={{ textDecoration: 'none'}}>Post</Link>
-          <div className={styles.category}>Contract</div>
+          <Link href="/contract" className={styles.category} style={{ textDecoration: 'none'}}>Contract</Link>
           <Link href="/write" className={styles.category} style={{ textDecoration: 'none'}}>Write</Link>
           <div className={styles.category}>Mypage</div>
         </div>
