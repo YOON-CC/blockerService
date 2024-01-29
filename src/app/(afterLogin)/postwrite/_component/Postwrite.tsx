@@ -9,7 +9,7 @@ import styles from "@/app/(afterLogin)/postwrite/_component/postwrite.module.css
 
 
 const Postwrite = () => {
-    const access_token = localStorage.getItem('access-token');
+    const access_token = typeof window !== 'undefined' ? localStorage.getItem('access-token') : null;
     console.log(access_token)
     
 
@@ -82,25 +82,36 @@ const Postwrite = () => {
     };
 
     const handleBoardPost = async (event: any) => {
-        // event.preventDefault();
-        // try {
-        //     const success = await postBoard({
-        //         title: title,
-        //         content: content,
-        //         info: location,
-        //         representImage: images[0],
-        //         contractId: selectContract,
-        //         images: images,
-        //     }, access_token);
-
-        //     if (success) {
-        //         console.log("옴");
-        //     }
-
-        // } catch (error) {
-        //     // 에러 처리 코드
-        // }
+        event.preventDefault();
+        try {
+            const boardData = {
+                title: title,
+                content: content,
+                info: location,
+                representImage: images[0],
+                contractId: selectContract,
+                images: images,
+            };
+    
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_REACT_APP_API_URL}/boards`, boardData, {
+                headers: {
+                    'Authorization': access_token,
+                }
+            });
+            console.log(response)
+            if (response.status === 201) {
+                console.log("옴");
+                return true;
+            } else {
+                return false;
+            }
+    
+        } catch (error) {
+            // 에러 처리 코드
+            throw error;
+        }
     };
+    
 
     return (
         <div>
