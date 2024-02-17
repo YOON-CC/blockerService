@@ -7,7 +7,6 @@ import Link from "next/link"
 
 type Props = { children: ReactNode};
 
-            
 export default function Layout({ children }: Props) {
   return (
     <div className={styles.container}>
