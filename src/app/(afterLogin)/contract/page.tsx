@@ -11,36 +11,42 @@ import Cookies from 'js-cookie';
 
 const Contract = () => {
 
-    const Progress = async() =>{
-      // const accessToken = Cookies.get('access_token');
-      const cookieStore = cookies();
-      const accessToken = cookieStore.get('access-token');
+  const Progress = async() =>{
+    // const accessToken = Cookies.get('access_token');
+    const cookieStore = cookies();
+    const authorization = cookieStore.get('whdbscks')?.value;
+    console.log(authorization)
+    // const res = await fetch('https://blockerrrr.site/api?state=NOT_PROCEED', {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_REACT_APP_API_URL}/contracts?state=NOT_PROCEED`, {
+      headers: { Authorization : authorization ? String(authorization) : '' }, 
+    })
 
-      console.log("쿠키 가져옴", accessToken)
-      
-      return null
-    }
+    const response = await res.json()
+    console.log("서버에서 받아온 값입니다.", response.length)
+    
+    return null
+  }
 
-    return (
-      <div className={styles.contractContainer}>
-      <div className={styles.contractContainer1}>
-        <div className={styles.contractContainer1Layout1}>
-          <div className={styles.contractContainer1Layout1Title}>Progress</div>
-          <Progress/>
-        </div>
-        <div className={styles.contractContainer1Layout2}></div>
+  return (
+    <div className={styles.contractContainer}>
+    <div className={styles.contractContainer1}>
+      <div className={styles.contractContainer1Layout1}>
+        <div className={styles.contractContainer1Layout1Title}>Progress</div>
+        <Progress/>
       </div>
-      <div className={styles.contractContainer2}>
-        <div className={styles.contractContainer2Layout1}></div>
-        <div className={styles.contractContainer2Layout2}></div>
-        <div className={styles.contractContainer2Layout3}></div>
-      </div>
-      <div className={styles.contractContainer3}>
-        <div className={styles.contractContainer3Layout1}></div>
-        <div className={styles.contractContainer3Layout2}></div>
-      </div>
+      <div className={styles.contractContainer1Layout2}></div>
     </div>
-    );
+    <div className={styles.contractContainer2}>
+      <div className={styles.contractContainer2Layout1}></div>
+      <div className={styles.contractContainer2Layout2}></div>
+      <div className={styles.contractContainer2Layout3}></div>
+    </div>
+    <div className={styles.contractContainer3}>
+      <div className={styles.contractContainer3Layout1}></div>
+      <div className={styles.contractContainer3Layout2}></div>
+    </div>
+  </div>
+  );
 };
 
 

@@ -35,7 +35,7 @@ export default function LoginModal() {
             const access_token = response.headers['authorization']
     
             Cookies.set('X-REFRESH-TOKEN', refresh_token);
-            Cookies.set('access-token', access_token);
+            Cookies.set('whdbscks', access_token);
             // localStorage.setItem('access-token', access_token)
     
     

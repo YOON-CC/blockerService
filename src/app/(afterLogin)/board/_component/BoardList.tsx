@@ -44,6 +44,7 @@ const Board = () => {
                     'Authorization': access_token,
                 },
             });
+            
     
             if (response.status === 200) {
                 console.log(response)
