@@ -1,20 +1,19 @@
-'use client'
+"use client"
 
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// import { uploadImages, postBoard } from '@/api/postWrite';
-import styles from "@/app/(afterLogin)/postwrite/_component/postwrite.module.css"
-
-// import * as Styled from '@/styles/postwrite.styles'
-
+import Image from 'next/image'; // Import Image component from next/image
+import styles from "@/app/(afterLogin)/postwrite/_component/postwrite.module.css";
 
 const Postwrite = () => {
     const access_token = typeof window !== 'undefined' ? localStorage.getItem('access-token') : null;
-    console.log(access_token)
-    
 
-    //로컬에서 이미지 가져오는 코드
     const [selectedImages, setSelectedImages] = useState<File[]>([]);
+    const [images, setImages] = useState<string[]>([]);
+    const [title, setTitle] = useState('');
+    const [location, setLocation] = useState('');
+    const [selectContract, setSelectContract] = useState('');
+    const [content, setContent] = useState('');
 
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFiles = event.target.files;
@@ -24,64 +23,53 @@ const Postwrite = () => {
         }
     };
 
-    //png 파일을 서버에 보내고 주소를 받는 코드
-    const [images, setImages] = useState<string[]>([]);
-
-    const handlePngToUrl = async () => {
-        try {
-            if (selectedImages.length === 0) {
-                return;
-            }
-    
-            const formData = new FormData();
-            const lastIndex = selectedImages.length - 1;
-            formData.append('image', selectedImages[lastIndex], 'image.png');
-    
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_REACT_APP_API_URL}/images`, formData, {
-                headers: {
-                    'Authorization': access_token,
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-    
-            if (response.status === 201) {
-                setImages(prevImages => [...prevImages, response.data.address]);
-            }
-        } catch (error) {
-            // 에러 처리
-            throw error;
-        }
-    };
-    
-
     useEffect(() => {
-        // 페이지가 로드될 때 한 번만 호출되는 로직
+        const handlePngToUrl = async () => {
+            try {
+                if (selectedImages.length === 0) {
+                    return;
+                }
+        
+                const formData = new FormData();
+                const lastIndex = selectedImages.length - 1;
+                formData.append('image', selectedImages[lastIndex], 'image.png');
+        
+                const response = await axios.post(`${process.env.NEXT_PUBLIC_REACT_APP_API_URL}/images`, formData, {
+                    headers: {
+                        'Authorization': access_token,
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+        
+                if (response.status === 201) {
+                    setImages(prevImages => [...prevImages, response.data.address]);
+                }
+            } catch (error) {
+                // Error handling
+                throw error;
+            }
+        };
+
         handlePngToUrl();
-    }, [selectedImages]);
+    }, [selectedImages, access_token]); // Include selectedImages and access_token in the dependency array
 
-    // 전체 데이터 전송 코드
-    const [title, setTitle] = useState('');
-    const [location, setLocation] = useState('');
-    const [selectContract, setSelectContract] = useState('');
-    const [content, setContent] = useState('');
-
-    const handletitleChange = (event : any) => {
-        setTitle(event.target.value)
+    const handletitleChange = (event : React.ChangeEvent<HTMLInputElement>) => {
+        setTitle(event.target.value);
     };
 
-    const handlelocationChange = (event : any) => {
-        setLocation(event.target.value)
+    const handlelocationChange = (event : React.ChangeEvent<HTMLInputElement>) => {
+        setLocation(event.target.value);
     };
     
-    const handleSelectContract = (event : any) => {
-        setSelectContract(event.target.value)
+    const handleSelectContract = (event : React.ChangeEvent<HTMLInputElement>) => {
+        setSelectContract(event.target.value);
     };
 
-    const handlecontentChange = (event : any) => {
-        setContent(event.target.value)
+    const handlecontentChange = (event : React.ChangeEvent<HTMLInputElement>) => {
+        setContent(event.target.value);
     };
 
-    const handleBoardPost = async (event: any) => {
+    const handleBoardPost = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
             const boardData = {
@@ -107,11 +95,10 @@ const Postwrite = () => {
             }
     
         } catch (error) {
-            // 에러 처리 코드
+            // Error handling code
             throw error;
         }
     };
-    
 
     return (
         <div>
@@ -121,7 +108,8 @@ const Postwrite = () => {
                 <div className={styles.Container_img_select}>
                     {selectedImages.map((image, index) => (
                         <div key={index}>
-                            <img className={styles.Container_img} src={URL.createObjectURL(image)} alt={`Selected ${index}`} style={{ width: 'fit-content', height: '50px', marginRight : '30px'}}></img>
+                            {/* Use Image component */}
+                            <Image className={styles.Container_img} src={URL.createObjectURL(image)} alt={`Selected ${index}`} width={50} height={50}></Image>
                         </div>
                     ))}
                     <label className={styles.StyledLabel} htmlFor="upload">+</label>
@@ -142,8 +130,5 @@ const Postwrite = () => {
         </div>
     );
 };
-
-
-
 
 export default Postwrite;

@@ -1,40 +1,39 @@
-'use client'
-
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Image from 'next/image'; // Image import 추가
 import styles from "@/app/(afterLogin)/_component/signatures.module.css";
 
 const Signatures = () => {
-
     const access_token = typeof window !== 'undefined' ? localStorage.getItem('access-token') : null;
     const [imageURL, setImageURL] = useState<string | null>(null); 
 
-    const handleBoardList = async () => {
-        try {
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_API_URL}/signatures`, {
-                headers: {
-                    'Authorization': access_token,
-                },
-            });
-    
-            if (response.status === 200) {
-                setImageURL(response.data.address);
-            }
-        } catch (error) {
-            console.error('API 호출 중 오류 발생:', error);
-            throw error;
-        }
-    };
-
     useEffect(() => {
-        // 페이지가 로드될 때 한 번만 호출되는 로직
-        handleBoardList();
-    }, []);
+        const handleBoardList = async () => {
+            try {
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_API_URL}/signatures`, {
+                    headers: {
+                        'Authorization': access_token,
+                    },
+                });
+        
+                if (response.status === 200) {
+                    setImageURL(response.data.address);
+                }
+            } catch (error) {
+                console.error('API 호출 중 오류 발생:', error);
+                throw error;
+            }
+        };
+
+        handleBoardList(); // useEffect 내에서 handleBoardList 호출
+
+    }, [access_token]); // access_token을 의존성 배열에 추가
 
     return (
         <div className={styles.Toplayout}>
             <div className={styles.Container}>
-                {imageURL && <img className={styles.signatureImg} src={imageURL} alt="logo" />}
+                {/* <img> 대신 <Image> 사용 */}
+                {imageURL && <Image className={styles.signatureImg} src={imageURL} alt="logo" />}
             </div>
             <div className={styles.ContainerText}>
                 <br/><br/><br/><br/>
