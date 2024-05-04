@@ -1,7 +1,6 @@
-import Main from "@/app/(beforeLogin)/_component/Main";
-import Board from "@/app/(afterLogin)/board/page"
+import Main from "@/app/(beforeLogin)/server_component/Main";
 
-export default function Home() {
+export default function Page() {
   return (
     <>
       <Main />
