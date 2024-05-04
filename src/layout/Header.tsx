@@ -3,11 +3,13 @@ import Link from "next/link";
 import { auth } from "@/auth"; // auth 추가
 import { signOut } from "next-auth/react";
 import SignOutBtn from "./client_component/SignOutBtn";
+import { handlePostMethod } from "@/restful/login";
+import appStore from "@/store/appStore";
+import Cookies from "js-cookie";
+import Btn from "./client_component/Btn";
 
 export default async function Header() {
-  const session = await auth(); // session 호출 추가
-  console.log(session, "fsdf"); // console log 추가
-  console.log("안녕안녕");
+  const session = await auth();
 
   return (
     <>
@@ -19,6 +21,7 @@ export default async function Header() {
           </Link>
         )}
         {session !== null && <SignOutBtn />}
+        {/* <Btn /> */}
       </div>
     </>
   );

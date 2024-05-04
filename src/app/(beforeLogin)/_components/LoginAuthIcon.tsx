@@ -11,7 +11,7 @@ export default function LoginAuthIcon() {
   const onClick = async () => {
     await signIn("kakao", {
       redirect: true,
-      callbackUrl: "/board",
+      callbackUrl: "/signature",
     });
   };
 
